@@ -6,7 +6,6 @@ import jwt from 'jsonwebtoken'
 
 export async function POST(req: Request) {
     
-
     const { email, senha } = await req.json()
 
     try {
@@ -27,9 +26,9 @@ export async function POST(req: Request) {
 
                 const token = jwt.sign(
                     objUsuario,
-                    '123456',
+                    '123465',//secret
                     {
-                        expresIn: '1d'//dias
+                        expiresIn: '1min'//dias
                         // expresIn: '1h' //horas
                         // expresIn: '1min' //minutos
                     }
@@ -45,6 +44,7 @@ export async function POST(req: Request) {
         }, {status: 401})
 
     } catch (err) {
+        console.log(err)
         return NextResponse.json(
             {
             message: 'Erro interno'
